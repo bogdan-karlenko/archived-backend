@@ -22,9 +22,9 @@ router.get('/', function (req, res) {
     res.send('ebhealth-backend is up')
 })
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log('-------------------------')
-    console.log('listening on port 3000\n');
+    console.log('listening on port', process.env.PORT || 3000, '\n');
     console.log('Press Ctrl+C to exit');
     console.log('-------------------------');
 });
