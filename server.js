@@ -1,11 +1,14 @@
 'use strict';
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const restify = require('express-restify-mongoose');
 const app = express();
 const router = express.Router();
+
+app.use(cors());
 
 app.use(bodyParser.json());
 app.use(methodOverride());
