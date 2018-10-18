@@ -18,6 +18,10 @@ restify.serve(router, mongoose.model('Provider'));
 
 app.use(router);
 
+router.get('/', function (req, res) {
+    res.send('ebhealth-backend is up')
+})
+
 app.listen(3000, () => {
     console.log('-------------------------')
     console.log('listening on port 3000\n');
