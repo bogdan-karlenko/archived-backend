@@ -11,12 +11,21 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^3.0.2",
     "cors": "^2.8.4",
+    "crypto": "^1.0.1",
+    "dotenv": "^6.1.0",
     "express": "^4.16.3",
     "express-restify-mongoose": "^5.0.0",
+    "jsonwebtoken": "^8.3.0",
     "method-override": "^3.0.0",
     "mongoose": "^5.2.17",
-    "mongoose-unique-validator": "^2.0.2"
+    "mongoose-unique-validator": "^2.0.2",
+    "passport": "^0.4.0",
+    "passport-facebook": "^2.1.1",
+    "passport-google-oauth": "^1.0.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0"
   },
   "engines": {
     "node": "10.12.0",
