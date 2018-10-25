@@ -25,13 +25,11 @@ passport.deserializeUser((id, done) => {
 passport.use(new LocalStrategy(
     (username, password, done) => {
         User.findOne({ username }, (err, user) => {
-            console.log(user);
             if (err) { return done(err); }
             if (!user) {
                 return done(null, false, { message: 'Incorrect username.' });
             }
             bcrypt.compare(password, user.password, (err, res) => {
-                console.log(res);
                 if (res) {
                     const token = jwt.sign(user.toJSON(), process.env.JWT_SECRET);
                     return done(null, {user, token});
@@ -73,7 +71,6 @@ passport.use('local-facebook', new LocalStrategy({
                         if (userId === id) {
                             User.findOne({ facebook_id: id }, (err, user) => {
                                 if (!user) return done(null, false, { message: 'This account is not connected to any user' });
-                                console.log(user);
                                 const token = jwt.sign(user.toJSON(), process.env.JWT_SECRET);
                                 return done(null, { user, token });
                             })
@@ -98,12 +95,9 @@ passport.use('local-google', new LocalStrategy({
         https.get('https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=' + token, (verifyRes) => {
             verifyRes.on('data', (data) => {
                 const userId = JSON.parse(data.toString('utf8')).sub;
-                console.log(data.toString('utf8'));
-                console.log(token);
 
                 if (userId === id) {
                     User.findOne({ google_id: id }, (err, user) => {
-                        console.log(user);
                         if (!user) return done(null, false, { message: 'This account is not connected to any user' });
                         const token = jwt.sign(user.toJSON(), process.env.JWT_SECRET);
                         return done(null, { user, token });

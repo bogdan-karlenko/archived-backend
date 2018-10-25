@@ -28,18 +28,18 @@ const generateLink = (email) => {
 
 router.post('/', (req, res) => {
     try {
-        console.log(req.body);
         const code = req.body.code;
         const user = req.body.user;
         if (!code || !user) res.status(400).end();
         const data = JSON.parse(decrypt(code));
         if (!data.email || data.email !== user.username) res.status(401).end();
-        bcrypt.hash(user.password, 10, (err, hash) => {
-            if (err) res.status(500).send(err);
-            user.password = hash;
-            User.create(user).then(user => {
-                res.status(201).send(user);
-            }).catch(err => res.status(406).end())
+        if (user.password) {
+            user.password = bcrypt.hashSync(user.password, 10);
+        }
+        User.create(user).then(user => {
+            res.status(201).send(user);
+        }).catch(err => {
+            res.status(406).send(err);
         });
     } catch (err) {
         res.status(500).end();
